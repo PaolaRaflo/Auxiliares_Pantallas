@@ -1,0 +1,264 @@
+/* Barra lateral */
+.sidebar {
+    position: fixed;
+    top: 60px; /* Ajuste para que el menú esté debajo del encabezado */
+    left: 0;
+    width: 200px;
+    height: calc(100vh - 60px); /* Reducir la altura para compensar el margen superior */
+    background-color: #2e7d32;
+    z-index: 1050;
+    overflow-y: auto;
+    transition: transform 0.3s ease-in-out;
+}
+
+.sidebar.hidden {
+    transform: translateX(-100%);
+}
+
+/* Botón para alternar la barra lateral */
+.btn-toggle-sidebar {
+    position: fixed;
+    top: 70px; /* Ajuste para que el botón esté alineado con el menú */
+    left: 210px; /* Posición lateral */
+    z-index: 1100;
+    background-color: #2e7d32;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.sidebar.hidden + .btn-toggle-sidebar {
+    left: 10px;
+}
+
+/* Contenido principal */
+.main-content {
+    margin-left: 200px;
+    padding: 20px;
+    transition: margin-left 0.3s ease-in-out;
+}
+
+.sidebar.hidden ~ .main-content {
+    margin-left: 0;
+}
+
+/* Estilo para los íconos y texto de los módulos */
+.sidebar .nav-link {
+    color: #ffffff;
+    font-size: 1em;
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.sidebar .nav-link i {
+    margin-right: 10px;
+    font-size: 1.2em;
+}
+
+.sidebar .nav-link:hover {
+    background-color: #1b5e20;
+}
+
+/* Footer siempre abajo */
+.footer {
+    background-color: #f8f9fa;
+    text-align: center;
+    padding: 10px 10;
+    color: #555;
+    width: calc(100% - 200px);
+    margin-left: 200px;
+    position: fixed;
+    bottom: 0;
+    transition: margin-left 0.3s ease, width 0.3s ease;
+}
+
+.sidebar.hidden ~ .footer {
+    width: calc(100% - 10px);
+    margin-left: 10px;
+}
+
+@media (max-width: 768px) {
+    .footer {
+        width: calc(100% - 10px);
+        margin-left: 10px;
+    }
+}
+
+/* General Styles */
+.main-content {
+    margin-left: 220px;
+    padding: 20px;
+}
+
+/* Información del Estudiante */
+.student-info {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+}
+
+
+
+/* Control de Asistencias */
+.attendance-summary .week-summary {
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+}
+
+.attendance-summary h6 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Lista de Asistencias */
+.attendance-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.attendance-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.attendance-list li:last-child {
+    border-bottom: none;
+}
+
+.attendance-list .date {
+    font-size: 14px;
+    color: #555;
+}
+
+.attendance-list .status {
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.attendance-list .status.present {
+    color: #4caf50;
+}
+
+.attendance-list .status.absent {
+    color: #f44336;
+}
+
+/* Resumen Total */
+.summary-total {
+    margin-top: 10px;
+    font-size: 14px;
+    text-align: right;
+    color: #555;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .main-content {
+        margin-left: 0;
+        padding: 15px;
+    }
+
+    .attendance-list li {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .summary-total {
+        text-align: left;
+    }
+}
+
+/* Estilo para la información del estudiante */
+.student-info {
+    background-color: #f9f9f9; /* Fondo claro */
+    border: 1px solid #ddd; /* Borde exterior */
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+   
+}
+
+.student-info h5 {
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #333;
+    border-bottom: 2px solid #ddd; /* Línea divisoria */
+    padding-bottom: 10px; /* Espacio entre el texto y la línea */
+}
+
+.text-right p strong {
+    font-weight: bold; /* Negrita */
+    text-transform: capitalize; /* Convierte solo la primera letra de cada palabra en mayúscula */
+    color: #333; /* Color oscuro */
+    margin-right: 5px; /* Espaciado entre el título y el contenido */
+}
+
+.student-info .d-flex {
+    display: flex;
+    align-items: center; /* Alinea los elementos verticalmente al centro */
+    justify-content: space-between; /* Asegura que los dos bloques estén separados horizontalmente */
+}
+
+.text-right {
+    display: flex;
+    flex-direction: column; /* Asegura que los elementos queden en una columna */
+    justify-content: center; /* Centra el contenido verticalmente */
+    text-align: right; /* Mantiene el texto alineado a la derecha */
+}
+
+.table-wrapper {
+    margin: 0 auto;
+    
+   
+    padding: 20px;
+    
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.table {
+    background-color: white;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.hours-bar {
+    display: flex;
+    height: 20px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 5px;
+}
+
+.bar {
+    height: 100%;
+}
+
+.bar.attended {
+    background-color: #4caf50; /* Verde para asistencias */
+}
+
+.bar.missed {
+    background-color: #f44336; /* Rojo para faltas */
+}
+
+.hours-text {
+    font-size: 14px;
+    font-weight: bold;
+}

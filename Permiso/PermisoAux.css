@@ -1,0 +1,429 @@
+
+
+/* Barra lateral */
+.sidebar {
+    position: fixed;
+    top: 60px; /* Ajuste para que el menú esté debajo del encabezado */
+    left: 0;
+    width: 200px;
+    height: calc(100vh - 60px); /* Reducir la altura para compensar el margen superior */
+    background-color: #2e7d32;
+    z-index: 1050;
+    overflow-y: auto;
+    transition: transform 0.3s ease-in-out;
+}
+
+.sidebar.hidden {
+    transform: translateX(-100%);
+}
+
+/* Botón para alternar la barra lateral */
+.btn-toggle-sidebar {
+    position: fixed;
+    top: 70px; /* Ajuste para que el botón esté alineado con el menú */
+    left: 210px; /* Posición lateral */
+    z-index: 1100;
+    background-color: #2e7d32;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.sidebar.hidden + .btn-toggle-sidebar {
+    left: 10px;
+}
+
+/* Contenido principal */
+.main-content {
+    margin-left: 200px;
+    padding: 20px;
+    transition: margin-left 0.3s ease-in-out;
+}
+
+.sidebar.hidden ~ .main-content {
+    margin-left: 0;
+}
+
+/* Estilo para los íconos y texto de los módulos */
+.sidebar .nav-link {
+    color: #ffffff;
+    font-size: 1em;
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.sidebar .nav-link i {
+    margin-right: 10px;
+    font-size: 1.2em;
+}
+
+.sidebar .nav-link:hover {
+    background-color: #1b5e20;
+}
+
+/* Footer siempre abajo */
+.footer {
+    background-color: #f8f9fa;
+    text-align: center;
+    padding: 10px 0;
+    color: #555;
+    width: calc(100% - 200px);
+    margin-left: 200px;
+    position: fixed;
+    bottom: 0;
+    transition: margin-left 0.3s ease, width 0.3s ease;
+}
+
+.sidebar.hidden ~ .footer {
+    width: calc(100% - 10px);
+    margin-left: 10px;
+}
+
+@media (max-width: 768px) {
+    .footer {
+        width: calc(100% - 10px);
+        margin-left: 10px;
+    }
+}
+
+
+.tabla-permisos {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.tabla-permisos th,
+.tabla-permisos td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ccc;
+}
+
+.tabla-permisos th {
+    background-color: #43a047;
+    color: white;
+}
+
+.tabla-permisos tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+.tabla-permisos tbody tr:hover {
+    background-color: #e0f7fa;
+}
+
+
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: white;
+    border: 1px solid #ddd;
+    width: 50%;
+    max-width: 600px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+  
+.modal-title {
+    text-align: center;
+    color: #28a745;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+.form-row .form-group:nth-child(2),
+.form-row .form-group:nth-child(3) {
+    grid-column: span 1; /* Asegura el espacio uniforme */
+    width: 100%; /* Ocupa todo el ancho disponible */
+}
+
+.full-width {
+    grid-column: span 3; /* Asegura que ocupe todo el ancho */
+}
+
+.form-row .form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+   
+}
+
+h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #28a745;
+    font-size: 1.5rem;
+}
+
+.form-registro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.form-registro .modal-actions {
+    grid-column: span 2; /* Ocupa las dos columnas */
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px; /* Espaciado entre los botones */
+}
+.form-group {
+
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #333;
+    font-weight: bold;
+}
+.form-group .input-control,
+.form-group textarea {
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    outline: none;
+}
+
+.form-group .input-control:focus,
+.form-group textarea:focus {
+    border-color: #43a047;
+}
+
+textarea {
+    resize: none; /* Deshabilita el redimensionamiento */
+}
+
+
+.form-group input {
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    outline: none;
+}
+
+.form-group input:focus {
+    border-color: #43a047;
+}
+
+
+
+.modal-actions {
+    grid-column: span 2;
+    display: flex;
+    justify-content: flex-end; /* Alineación a la derecha */
+    gap: 10px; /* Espaciado entre los botones */
+    margin-top: 20px;
+}
+
+.modal-actions .btn-primary {
+    background-color: #43a047;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+
+.modal-actions .btn-primary:hover {
+    background-color: #2e5637;
+}
+
+.modal-actions i.bi-printer-fill {
+    font-size: 24px;
+    color: #007bff;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.modal-actions i.bi-printer-fill:hover {
+    color: #0056b3;
+    transform: scale(1.2);
+}
+
+
+.btn-success {
+    background-color: #43a047;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn-success:hover {
+    background-color: #2e5637;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+.operaciones {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px; /* Espaciado entre íconos */
+}
+
+.operaciones i {
+    font-size: 20px; /* Tamaño uniforme */
+    cursor: pointer;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+/* Colores predeterminados */
+.operaciones i.bi-pencil-square {
+    color: #4caf50; /* Verde para editar */
+}
+
+.operaciones i.bi-trash-fill {
+    color: #f44336; /* Rojo para eliminar */
+}
+
+/* Hover: efecto visual */
+.operaciones i:hover {
+    transform: scale(1.2); /* Aumenta ligeramente el tamaño */
+}
+
+/* Hover para cada acción */
+.operaciones i.bi-pencil-square:hover {
+    color: #43a047; /* Verde más oscuro */
+}
+
+.operaciones i.bi-trash-fill:hover {
+    color: #d32f2f; /* Rojo más oscuro */
+}
+
+
+.modal-actions .btn-primary {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.modal-actions .btn-primary:hover {
+    background-color: #0056b3;
+}
+
+
+/* Firma */
+.firma-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.firma-line {
+    width: 40%;
+    border-top: 1px solid #333;
+    margin-bottom: 10px;
+}
+
+.firma-text {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #555;
+    text-align: center;
+}
+
+
+/* Botón de impresión */
+.print-container {
+    text-align: right; /* Alinea el contenido al lado derecho */
+    margin-top: 10px;
+    margin-right: 15px; /* Opcional: agrega un margen a la derecha */
+}
+
+.print-container i {
+    font-size: 24px;
+    color: #000; /* Color negro */
+    cursor: pointer;
+    font-weight: bold; /* Negrita */
+    transition: transform 0.3s ease;
+}
+
+.print-container i:hover {
+    color: #2b2d30;
+    transform: scale(1.2);
+}
+
+
+
+@media (max-width: 768px) {
+    .modal-content {
+        width: 90%; /* Reduce el ancho del modal para pantallas pequeñas */
+    }
+
+    .form-registro {
+        grid-template-columns: 1fr; /* Cambia a una columna */
+    }
+
+    .modal-actions {
+        grid-column: span 1; /* Asegura que los botones estén bien alineados */
+        justify-content: center; /* Centra los botones en pantallas pequeñas */
+        gap: 15px; /* Aumenta la separación entre botones */
+    }
+}
+
+
+

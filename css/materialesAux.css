@@ -1,0 +1,127 @@
+/* Barra lateral */
+.sidebar {
+    position: fixed;
+    top: 60px; /* Ajuste para que el menú esté debajo del encabezado */
+    left: 0;
+    width: 200px;
+    height: calc(100vh - 60px); /* Reducir la altura para compensar el margen superior */
+    background-color: #2e7d32;
+    z-index: 1050;
+    overflow-y: auto;
+    transition: transform 0.3s ease-in-out;
+}
+
+.sidebar.hidden {
+    transform: translateX(-100%);
+}
+
+/* Botón para alternar la barra lateral */
+.btn-toggle-sidebar {
+    position: fixed;
+    top: 70px; /* Ajuste para que el botón esté alineado con el menú */
+    left: 210px; /* Posición lateral */
+    z-index: 1100;
+    background-color: #2e7d32;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.sidebar.hidden + .btn-toggle-sidebar {
+    left: 10px;
+}
+
+/* Contenido principal */
+.main-content {
+    margin-left: 200px;
+    padding: 20px;
+    transition: margin-left 0.3s ease-in-out;
+}
+
+.sidebar.hidden ~ .main-content {
+    margin-left: 0;
+}
+
+/* Estilo para los íconos y texto de los módulos */
+.sidebar .nav-link {
+    color: #ffffff;
+    font-size: 1em;
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.sidebar .nav-link i {
+    margin-right: 10px;
+    font-size: 1.2em;
+}
+
+.sidebar .nav-link:hover {
+    background-color: #1b5e20;
+}
+.schedule-title {
+    text-align: center; /* Centrar el texto */
+    font-size: 2rem; /* Tamaño grande del texto */
+    font-weight: bold; /* Negrita */
+    color: #131914; /* Verde oscuro */
+    margin-top: 30px; /* Reducir el margen superior */
+    margin-bottom: 10px; /* Espaciado debajo del título */
+}
+
+
+/* Footer siempre abajo */
+.footer {
+    background-color: #f8f9fa;
+    text-align: center;
+    padding: 10px 10;
+    color: #555;
+    width: calc(100% - 200px);
+    margin-left: 200px;
+    position: fixed;
+    bottom: 0;
+    transition: margin-left 0.3s ease, width 0.3s ease;
+}
+
+.sidebar.hidden ~ .footer {
+    width: calc(100% - 10px);
+    margin-left: 10px;
+}
+
+@media (max-width: 768px) {
+    .footer {
+        width: calc(100% - 10px);
+        margin-left: 10px;
+    }
+}
+
+/* Cards */
+.card {
+    height: 120px; /* Altura fija */
+    background-color: #f4f4f4;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra */
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Botones */
+.btn-success {
+    font-size: 0.9rem;
+    padding: 10px 20px;
+    border-radius: 6%;
+}
+
+.btn-success:hover {
+    background-color: #1b5e20;
+    transform: scale(1.05);
+}

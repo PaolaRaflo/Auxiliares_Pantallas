@@ -1,0 +1,193 @@
+/* Barra lateral */
+.sidebar {
+    position: fixed;
+    top: 60px; /* Altura bajo el encabezado */
+    left: 0;
+    width: 200px;
+    height: calc(100vh - 60px);
+    background-color: #2e7d32; /* Verde oscuro */
+    z-index: 1050;
+    overflow-y: auto;
+    transition: transform 0.3s ease-in-out;
+}
+
+.sidebar.hidden {
+    transform: translateX(-100%);
+}
+
+/* Botón para alternar la barra lateral */
+.btn-toggle-sidebar {
+    position: fixed;
+    top: 70px; /* Alineado con la barra lateral */
+    left: 210px;
+    z-index: 1100;
+    background-color: #2e7d32;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.sidebar.hidden + .btn-toggle-sidebar {
+    left: 10px;
+}
+
+/* Contenido principal */
+.main-content {
+    margin-left: 200px;
+    margin-top: 60px;
+    padding: 20px;
+    transition: margin-left 0.3s ease-in-out;
+}
+
+.sidebar.hidden ~ .main-content {
+    margin-left: 0;
+}
+
+/* Estilo de los íconos y texto del menú */
+.sidebar .nav-link {
+    color: #ffffff;
+    font-size: 1em;
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.sidebar .nav-link i {
+    margin-right: 10px;
+    font-size: 1.2em;
+}
+
+.sidebar .nav-link:hover {
+    background-color: #1b5e20;
+}
+
+.sidebar .nav-link.active {
+    background-color: #1b5e20;
+    font-weight: bold;
+}
+
+/* Footer */
+.footer {
+    background-color: #f8f9fa;
+    text-align: center;
+    padding: 10px 0;
+    color: #555;
+    width: calc(100% - 200px);
+    margin-left: 200px;
+    position: fixed;
+    bottom: 0;
+    transition: margin-left 0.3s ease, width 0.3s ease;
+}
+
+.sidebar.hidden ~ .footer {
+    width: calc(100% - 10px);
+    margin-left: 10px;
+}
+
+/* Tabla de horarios */
+.schedule-container {
+    margin: 20px;
+}
+
+/* Estilo del título principal */
+.schedule-title {
+    text-align: center; /* Centrar el texto */
+    font-size: 2rem; /* Tamaño grande del texto */
+    font-weight: bold; /* Negrita */
+    color: #101410; /* Verde oscuro */
+    margin-top: -50px; /* Reducir el margen superior */
+    margin-bottom: 10px; /* Espaciado debajo del título */
+}
+
+.schedule-header {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.schedule-header h5 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #2e7d32;
+}
+
+.schedule-header p {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.schedule-table th, .schedule-table td {
+    border: 1px solid #ccc;
+    text-align: center;
+    padding: 8px;
+}
+
+.schedule-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+    border-radius: 4px; /* Bordes redondeados */
+    text-align: center;
+}
+
+.schedule-table th {
+    background-color: #43a047; /* Verde intenso */
+    color: #ffffff;
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-bottom: 3px solid #2e7d32;
+}
+
+.schedule-table td {
+    background-color: #ffffff;
+    color: #333333;
+    padding: 10px;
+    font-size: 0.95rem;
+    border-bottom: 1px solid #e0e0e0;
+    transition: background-color 0.3s ease;
+}
+
+.schedule-table tr:nth-child(odd) td {
+    background-color: #f9f9f9;
+}
+
+.recess-row td {
+    background-color: #81c784; /* Verde pálido */
+    color: #121813;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 1rem;
+    border-bottom: none;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+    .footer {
+        width: calc(100% - 10px);
+        margin-left: 10px;
+    }
+
+    .btn-toggle-sidebar {
+        left: 10px;
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+
+    .schedule-table th, .schedule-table td {
+        font-size: 0.85rem; /* Tamaño reducido */
+        padding: 8px;
+    }
+
+    .schedule-title {
+        font-size: 2rem;
+    }
+}

@@ -1,0 +1,165 @@
+/* Barra lateral */
+.sidebar {
+    position: fixed;
+    top: 60px; /* Ajuste para que el menú esté debajo del encabezado */
+    left: 0;
+    width: 200px;
+    height: calc(100vh - 60px); /* Reducir la altura para compensar el margen superior */
+    background-color: #2e7d32;
+    z-index: 1050;
+    overflow-y: auto;
+    transition: transform 0.3s ease-in-out;
+}
+
+.sidebar.hidden {
+    transform: translateX(-100%);
+}
+
+/* Botón para alternar la barra lateral */
+.btn-toggle-sidebar {
+    position: fixed;
+    top: 70px; /* Ajuste para que el botón esté alineado con el menú */
+    left: 210px; /* Posición lateral */
+    z-index: 1100;
+    background-color: #2e7d32;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.sidebar.hidden + .btn-toggle-sidebar {
+    left: 10px;
+}
+
+/* Contenido principal */
+.main-content {
+    margin-left: 200px;
+    padding: 20px;
+    transition: margin-left 0.3s ease-in-out;
+}
+
+.sidebar.hidden ~ .main-content {
+    margin-left: 0;
+}
+
+/* Estilo para los íconos y texto de los módulos */
+.sidebar .nav-link {
+    color: #ffffff;
+    font-size: 1em;
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.sidebar .nav-link i {
+    margin-right: 10px;
+    font-size: 1.2em;
+}
+
+.sidebar .nav-link:hover {
+    background-color: #1b5e20;
+}
+
+/* Footer siempre abajo */
+.footer {
+    background-color: #f8f9fa;
+    text-align: center;
+    padding: 10px 0;
+    color: #555;
+    width: calc(100% - 200px);
+    margin-left: 200px;
+    position: fixed;
+    bottom: 0;
+    transition: margin-left 0.3s ease, width 0.3s ease;
+}
+
+.sidebar.hidden ~ .footer {
+    width: calc(100% - 10px);
+    margin-left: 10px;
+}
+
+@media (max-width: 768px) {
+    .footer {
+        width: calc(100% - 10px);
+        margin-left: 10px;
+    }
+}
+
+/* Estilo del enlace "Cursos" */
+.main-content .back-button {
+    display: inline-flex;
+    align-items: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #1a1d1a;
+    text-decoration: none;
+    font-size: 0.9em; /* Tamaño reducido */
+    margin-bottom: 20px;
+    padding: 5px 10px;
+    transition: all 0.3s ease-in-out;
+}
+
+.accordion .card {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+}
+
+.accordion .card-header:hover {
+    background-color: #f5f5f5;
+}
+
+.accordion .collapse {
+    background-color: #ffffff;
+    padding: 12px;
+    border-radius: 0 0 8px 8px;
+}
+
+.accordion .btn-link {
+    font-weight: bold;
+    color: #141714;
+    text-decoration: none;
+    font-size: 0.6em; /* Tamaño reducido */
+    transition: color 0.3s ease;
+}
+
+.accordion .btn-link:hover {
+    color: #161a16;
+}
+
+.accordion .btn-link i {
+    margin-right: 5px;
+    font-size: 1.2em;
+}
+
+.accordion .card-body {
+    font-size: 1.2em; /* Tamaño reducido */
+    color: #555;
+    line-height: 1.6;
+}
+
+.accordion .card-body span {
+    font-size: 0.9em; /* Tamaño reducido */
+    color: #333;
+}
+
+.accordion .card-body button {
+    background: none;
+    border: none;
+    color: #1e221e;
+    cursor: pointer;
+    font-size: 0.9em; /* Tamaño reducido */
+    transition: color 0.3s ease;
+}
+
+
+.accordion .card-body button:hover {
+    color: #1b5e20;
+}
+
+

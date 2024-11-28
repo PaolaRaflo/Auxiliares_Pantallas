@@ -9,7 +9,7 @@ function validateEmail() {
             confirmButtonText: 'Aceptar',
             confirmButtonColor: '#2e7d32'
         }).then(() => {
-            window.location.href = 'validarc.html';
+            window.location.href = '/Seguridad/ValidarcAux.html';
         });
         return false;
     } else {

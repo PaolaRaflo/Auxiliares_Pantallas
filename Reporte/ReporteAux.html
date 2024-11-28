@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pantalla Principal - CPU Alumnos</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/Reporte/ReporteAux.css">
+    <style>
+        .menu-reporte {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 50px;
+        }
+        .reporte-card {
+            width: 250px;
+            height: 150px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            text-align: center;
+            padding: 20px;
+            background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+        .reporte-card h4 {
+            margin-bottom: 10px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body onload="checkAuthentication()">
+    <!-- Encabezado superior -->
+    <header class="header d-flex justify-content-between align-items-center p-2 border-bottom">
+        <h1 class="h4 ml-3">CENTRO PRE UNIVERSITARIO</h1>
+        <div class="user-info d-flex align-items-center mr-3">
+            <i class="bi bi-bell mr-3"></i>
+            <div class="d-flex flex-column align-items-end">
+                <span class="user-name">FRANK PATRICK VASQUEZ GARCIA</span>
+                <span class="user-role text-warning">Auxiliar</span>
+            </div>
+            <div class="dropdown">
+                <a href="#" data-toggle="dropdown" style="margin-left: 8px;">
+                    <img src="/img/perfil-icon.png" alt="Perfil" style="width: 45px; height: 45px; border-radius: 50%; border: 1px solid #333;">
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="/perfilAux.html">Ver Perfil</a>
+                    <a class="dropdown-item" href="/indexAux.html" onclick="logout()">Cerrar Sesión</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Barra Lateral -->
+    <nav class="sidebar">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" href="/menuAux.html">
+                    <i class="bi bi-house"></i> Inicio
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/Asistencia/asistenciaAux.html">
+                    <i class="bi bi-person-lines-fill"></i> Asistencia
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/Permiso/PermisoAux.html">
+                    <i class="bi bi-card-checklist"></i> Permisos
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/Reporte/ReporteAux.html">
+                    <i class="bi bi-clipboard-data"></i> Reportes
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <button class="btn-toggle-sidebar" onclick="toggleSidebar()">
+        <i class="bi bi-arrow-left-right"></i>
+    </button>
+
+    <!-- Contenido principal -->
+    <main class="container mt-4">
+        <div id="menuReportes" class="container mt-5">
+            <h3 class="text-center">Generar Reportes</h3>
+            <div class="menu-reporte">
+                <div class="reporte-card">
+                    <h4>ALUMNOS</h4>
+                    <i class="bi bi-mortarboard" style="font-size: 2rem;"></i>
+                    <button class="btn btn-success" onclick="showReport('alumnos')">GENERAR</button>
+                </div>
+                <div class="reporte-card">
+                    <h4>DOCENTES</h4>
+                    <i class="bi bi-person-lines-fill" style="font-size: 2rem;"></i>
+                    <button class="btn btn-success" onclick="showReport('docentes')">GENERAR</button>
+                </div>
+                
+            </div>
+        </div>
+    
+        <!-- Reporte de Alumnos -->
+        <div id="reporteAlumnos" class="container mt-4 hidden">
+            <h3 class="text-center">Historial de Asistencias de Estudiantes</h3>
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <label>Fecha de inicio:</label>
+                    <input type="date" id="startDate" class="form-control">
+                </div>
+                <div class="col-md-3">
+                    <label>Fecha final:</label>
+                    <input type="date" id="endDate" class="form-control">
+                </div>
+                <div class="col-md-3 align-self-end">
+                    <button class="btn btn-success" onclick="filterEstudiantes()">Buscar <i class="bi bi-search"></i></button>
+                </div>
+                <div class="buttons-container text-center">
+                    <button class="btn btn-success mr-2" onclick="exportToExcel('estudiantesTable', 'Reporte_Estudiantes')">
+                        <i class="bi bi-file-earmark-excel"></i> Exportar
+                    </button>
+                    <button class="btn btn-danger" onclick="goBack()">
+                        <i class="bi bi-x-circle"></i> Cancelar
+                    </button>
+                </div>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Apellidos</th>
+                        <th>Nombres</th>
+                        <th>Asistencias</th>
+                        <th>Justificaciones</th>
+                        <th>Inasistencias</th>
+                    </tr>
+                </thead>
+                <tbody id="estudiantesTable">
+                    <!-- Filas dinámicas -->
+                </tbody>
+            </table>
+        </div>
+    
+        <!-- Reporte de Docentes -->
+        <div id="reporteDocentes" class="container mt-4 hidden">
+            <h3 class="text-center">Historial de Asistencias de Docentes</h3>
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <label>Fecha de inicio:</label>
+                    <input type="date" id="startDate" class="form-control">
+                </div>
+                <div class="col-md-3">
+                    <label>Fecha final:</label>
+                    <input type="date" id="endDate" class="form-control">
+                </div>
+                <div class="col-md-3 align-self-end">
+                    <button class="btn btn-success" onclick="filterDocentes()">Buscar <i class="bi bi-search"></i></button>
+                </div>
+                <div class="buttons-container text-center">
+                    <button class="btn btn-success mr-2" onclick="exportToExcel('estudiantesTable', 'Reporte_Estudiantes')">
+                        <i class="bi bi-file-earmark-excel"></i> Exportar
+                    </button>
+                    <button class="btn btn-danger" onclick="goBack()">
+                        <i class="bi bi-x-circle"></i> Cancelar
+                    </button>
+                </div>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Apellidos</th>
+                        <th>Nombres</th>
+                        <th>Horas Dictadas</th>
+                        <th>Horas No Dictadas</th>
+                    </tr>
+                </thead>
+                <tbody id="docentesTable">
+                    <!-- Filas dinámicas -->
+                </tbody>
+            </table>
+        </div>
+
+
+    <!-- Footer -->
+    <footer class="footer text-center">
+        © 2023 Centro Pre Universitario. Todos los derechos reservados.
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="/js/scriptAux.js"></script>
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            const mainContent = document.querySelector('.main-content');
+            const toggleButton = document.querySelector('.btn-toggle-sidebar');
+
+            sidebar.classList.toggle('hidden');
+            if (sidebar.classList.contains('hidden')) {
+                toggleButton.style.left = '10px';
+            } else {
+                toggleButton.style.left = '210px';
+            }
+        }
+
+        // Detectar el cambio de tamaño de la ventana
+        window.addEventListener('resize', () => {
+            const sidebar = document.querySelector('.sidebar');
+            if (window.innerWidth <= 768) {
+                sidebar.classList.add('hidden');
+            } else {
+                sidebar.classList.remove('hidden');
+            }
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script>
+       const docentes = [
+    { codigo: '47658932', apellidos: 'González Pérez', nombres: 'María Fernanda', horasDictadas: 35, horasNoDictadas: 2 },
+    { codigo: '48967423', apellidos: 'Torres Gómez', nombres: 'Juan Carlos', horasDictadas: 40, horasNoDictadas: 0 },
+    { codigo: '41589674', apellidos: 'Ramírez López', nombres: 'Ana Sofía', horasDictadas: 38, horasNoDictadas: 1 },
+    { codigo: '43219876', apellidos: 'Martínez Díaz', nombres: 'Pedro Luis', horasDictadas: 36, horasNoDictadas: 4 },
+    { codigo: '43892714', apellidos: 'Fernández Ruiz', nombres: 'Claudia Isabel', horasDictadas: 32, horasNoDictadas: 3 },
+    { codigo: '40983756', apellidos: 'Sánchez Jiménez', nombres: 'Carlos Alberto', horasDictadas: 30, horasNoDictadas: 5 },
+    { codigo: '42659783', apellidos: 'Pérez Vargas', nombres: 'Laura Victoria', horasDictadas: 37, horasNoDictadas: 2 },
+    { codigo: '49823714', apellidos: 'Díaz Romero', nombres: 'José Manuel', horasDictadas: 40, horasNoDictadas: 0 },
+    { codigo: '45982374', apellidos: 'Ruiz Torres', nombres: 'Luis Alejandro', horasDictadas: 34, horasNoDictadas: 4 },
+    { codigo: '48917632', apellidos: 'Jiménez Ortega', nombres: 'Andrea Paula', horasDictadas: 36, horasNoDictadas: 1 },
+];
+
+const estudiantes = [
+    { codigo: '73918264', apellidos: 'Alvarado Chávez', nombres: 'Lucía Gabriela', asistencias: 18, justificaciones: 1, inasistencias: 1 },
+    { codigo: '73146892', apellidos: 'Blanco Martínez', nombres: 'Diego Andrés', asistencias: 19, justificaciones: 0, inasistencias: 1 },
+    { codigo: '75218463', apellidos: 'Campos Flores', nombres: 'Valentina Isabel', asistencias: 17, justificaciones: 2, inasistencias: 1 },
+    { codigo: '74139258', apellidos: 'Duarte Castillo', nombres: 'Sofía Alejandra', asistencias: 20, justificaciones: 0, inasistencias: 0 },
+    { codigo: '72841936', apellidos: 'Espinoza Ramírez', nombres: 'José Martín', asistencias: 16, justificaciones: 3, inasistencias: 1 },
+    { codigo: '76483921', apellidos: 'Gómez Pérez', nombres: 'Camila Fernanda', asistencias: 18, justificaciones: 1, inasistencias: 1 },
+    { codigo: '75931846', apellidos: 'Herrera Torres', nombres: 'Juan David', asistencias: 15, justificaciones: 2, inasistencias: 3 },
+    { codigo: '74621389', apellidos: 'Iglesias Vargas', nombres: 'Daniel Alejandro', asistencias: 19, justificaciones: 0, inasistencias: 1 },
+    { codigo: '75486923', apellidos: 'Jaramillo Díaz', nombres: 'María José', asistencias: 14, justificaciones: 4, inasistencias: 2 },
+    { codigo: '76821943', apellidos: 'López Fernández', nombres: 'Santiago Nicolás', asistencias: 20, justificaciones: 0, inasistencias: 0 },
+];
+
+const auxiliares = [
+    { codigo: '81234567', apellidos: 'Mendoza Ruiz', nombres: 'Carla Patricia', asistencias: 19, justificaciones: 1, inasistencias: 0 },
+    { codigo: '82345678', apellidos: 'Navarro López', nombres: 'Luis Enrique', asistencias: 18, justificaciones: 2, inasistencias: 0 },
+    { codigo: '83456789', apellidos: 'Ortega Silva', nombres: 'Ana Sofía', asistencias: 17, justificaciones: 0, inasistencias: 3 },
+    { codigo: '84567890', apellidos: 'Pérez Gómez', nombres: 'Javier Alberto', asistencias: 20, justificaciones: 0, inasistencias: 0 },
+    { codigo: '85678901', apellidos: 'Quintana Torres', nombres: 'Elena Gabriela', asistencias: 16, justificaciones: 1, inasistencias: 3 },
+    { codigo: '86789012', apellidos: 'Ramírez Sánchez', nombres: 'Hugo Sebastián', asistencias: 15, justificaciones: 3, inasistencias: 2 },
+    { codigo: '87890123', apellidos: 'Salas Vega', nombres: 'Victoria Daniela', asistencias: 19, justificaciones: 0, inasistencias: 1 },
+    { codigo: '88901234', apellidos: 'Tello Fernández', nombres: 'Carlos Eduardo', asistencias: 18, justificaciones: 2, inasistencias: 0 },
+    { codigo: '89012345', apellidos: 'Ulloa Cabrera', nombres: 'Camila Antonella', asistencias: 14, justificaciones: 4, inasistencias: 2 },
+    { codigo: '90123456', apellidos: 'Vargas Jiménez', nombres: 'Pablo Emilio', asistencias: 20, justificaciones: 0, inasistencias: 0 },
+];
+
+        function showReport(type) {
+            document.getElementById('menuReportes').classList.add('hidden');
+            if (type === 'docentes') {
+                document.getElementById('reporteDocentes').classList.remove('hidden');
+            } else if (type === 'auxiliares') {
+            document.getElementById('reporteAuxiliares').classList.remove('hidden');
+            } else {
+                document.getElementById('reporteAlumnos').classList.remove('hidden');
+                
+            }
+        }
+
+        function goBack() {
+            document.getElementById('reporteDocentes').classList.add('hidden');
+            document.getElementById('reporteAuxiliares').classList.add('hidden');
+            document.getElementById('reporteAlumnos').classList.add('hidden');
+            document.getElementById('menuReportes').classList.remove('hidden');
+        }
+
+        function filterDocentes() {
+            const tbody = document.getElementById('docentesTable');
+            tbody.innerHTML = '';
+            docentes.forEach(docente => {
+                const row = `
+                    <tr>
+                        <td>${docente.codigo}</td>
+                        <td>${docente.apellidos}</td>
+                        <td>${docente.nombres}</td>
+                        <td>${docente.horasDictadas}</td>
+                        <td>${docente.horasNoDictadas}</td>
+                    </tr>
+                `;
+                tbody.insertAdjacentHTML('beforeend', row);
+            });
+        }
+
+        function filterEstudiantes() {
+            const tbody = document.getElementById('estudiantesTable');
+            tbody.innerHTML = '';
+            estudiantes.forEach(estudiante => {
+                const row = `
+                    <tr>
+                        <td>${estudiante.codigo}</td>
+                        <td>${estudiante.apellidos}</td>
+                        <td>${estudiante.nombres}</td>
+                        <td>${estudiante.asistencias}</td>
+                        <td>${estudiante.justificaciones}</td>
+                        <td>${estudiante.inasistencias}</td>
+                    </tr>
+                `;
+                tbody.insertAdjacentHTML('beforeend', row);
+            });
+        }
+
+        function filterAuxiliares() {
+        const tbody = document.getElementById('auxiliaresTable');
+        tbody.innerHTML = '';
+        auxiliares.forEach(auxiliar => {
+            const row = `
+                <tr>
+                    <td>${auxiliar.codigo}</td>
+                    <td>${auxiliar.apellidos}</td>
+                    <td>${auxiliar.nombres}</td>
+                    <td>${auxiliar.asistencias}</td>
+                    <td>${auxiliar.inasistencias}</td>
+                </tr>
+            `;
+            tbody.insertAdjacentHTML('beforeend', row);
+        });
+    }
+
+        function exportToExcel(tableID, filename) {
+            const table = document.getElementById(tableID);
+            const wb = XLSX.utils.table_to_book(table, { sheet: 'Sheet1' });
+            XLSX.writeFile(wb, `${filename}.xlsx`);
+        }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</body>
+</html>
